@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>BOM查询</title>
+
+<link rel="stylesheet" type="text/css" href="../static/css/font-awesome.min.css">
+<link rel="stylesheet" href="../static/css/jquery.paginate.css" />
+<link rel="stylesheet" href="../static/css/jquery.yhhDataTable.css" />
+<link rel="stylesheet" href="../static/css/HnSideMenu.css" />
+<link rel="stylesheet" href="../static/css/only-index.css" />
+<link rel="stylesheet" href="../static/css/go-out.css" />
+
+<script type="text/javascript" src="../static/js/jquery.min.js"></script>
+<script type="text/javascript" src="../static/js/jquery.paginate.js" ></script>
+<script type="text/javascript" src="../static/js/jquery.yhhDataTable.js" ></script>
+<script type="text/javascript" src="../static/js/HnSideMenu/HnSideMenu.js" ></script>
+<script type="text/javascript" src="../static/js/index.js" ></script>
+<script src="../static/js/HnSearch.js"></script>
+</head>
+<body>
+<HnSideMenu class ="HnSideMenu">
+
+</HnSideMenu>
+
+<div class="indexdiv">
+	<table id="BomMotherTable" class ="div-right">
+		<thead>
+		<tr>
+			<th>Bom编码</th><th>物料代码</th><th>物料名称</th><th>规格型号</th><th>物料属性</th><th>单位</th><th>数量</th><th>成品率</th><th>状态</th><th>审核</th><th>审核日期</th><th>版本</th><th>图号</th><th>工艺路线代码</th><th>工艺路线名称</th><th>建立人员</th><th>新建时间</th><th>备注</th>
+		</tr>
+		</thead>
+		
+		<tbody>
+			
+		</tbody>
+	</table>
+	<div><button onclick="cleanButton()" class ="clearinput">清空</button></div>
+	<table id="BomChildTable">
+		<thead><tr>
+			<th>内码</th><th>顺序号</th><th>物料代码</th><th>物料名称</th><th>规格型号</th><th>辅助属性</th><th>物料属性</th><th>子项类型</th><th>配置属性</th><th>基本用量</th><th>单位</th><th>用量</th><th>计划百分比</th><th>损耗率</th><th>位置号</th><th>生效日期</th><th>失效日期</th>
+		</tr></thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>
+ 
+
+</body>
+
+</html>

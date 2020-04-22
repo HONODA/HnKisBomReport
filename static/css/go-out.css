@@ -1,0 +1,15 @@
+tr {
+    color:black;
+    animation: outframe ease-out;
+    -webkit-animation:outframe 2s; /* Safari and Chrome */
+    transition-property: all;
+}
+
+@keyframes outframe{
+    0% {color:white;}
+    100% {color:black;}
+}
+@-webkit-keyframes outframe{
+    0% {color:white;}
+    100% {color:black;}
+}

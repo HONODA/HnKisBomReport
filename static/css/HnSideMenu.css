@@ -1,0 +1,82 @@
+.HnSideMenu{
+	position: fixed;
+	transition:0.25s ease-out;
+	-webkit-transition:0.25s ease-out; 
+	z-index: 99998;
+}
+
+/**/
+.HnSideMenu > .SideMenuContent{
+	transition:0.25s ease-out;
+	-webkit-transition:0.25s ease-out; 
+}
+/*This is a Bar Style*/
+.HnSideMenu > .SideMenuContent > label{
+	  background:rgb(189, 188, 188);
+	  border-radius:15px;
+	  border-top-left-radius: 0px;
+	  border-bottom-left-radius: 0px;
+      color: rgb(139, 137, 124);
+      cursor: pointer;
+      display: block;
+      font-family: Courier New;
+      font-size: 25px;
+      font-weight: bold;
+      width: 70px;
+      height: 50px;
+      line-height: 35px;
+      text-align: center;
+	  text-shadow: 0 -4px;
+	  
+
+}
+/*This is Title and Content*/
+.HnSideMenu > .SideMenuContent > aside{
+	position:fixed;/*显示最上层前提条件*/
+	z-index: 99999;/*显示最上层直接条件*/
+	top:0;
+	bottom:0; 
+	left:-190px;
+	width:200px;
+	background:#DDDDDD;
+	transition:0.25s ease-out; 
+	-webkit-transition:0.2s ease-out;
+	min-height: 100%;
+}
+.HnSideMenu > #hnside{
+	position:fixed;
+	top:0;
+	bottom:0; 
+	left:-190px;
+	width:200px;
+	background:#000000;
+
+}
+/*This is a input  Bar Style*/
+.HnSideMenu > #hnside{
+	display:none;
+
+}
+/*This is a input Bar Style*/
+.HnSideMenu > #hnside:checked + .SideMenuContent > aside{
+	left:0px; 
+	text-align: center;
+	overflow:auto;
+}
+.HnSideMenu > #hnside:checked + .SideMenuContent > aside > *{
+	display: inline;
+	
+ 
+}
+.HnSideMenu > #hnside + .SideMenuContent > aside > *{
+	display: none;
+ 
+}
+
+/*This is a input Bar Style*/
+#hnside:checked + .SideMenuContent{
+	padding-left:190px;
+}
+.HnSideMenu > #hnside:checked + .SideMenuContent > aside > h1 {
+	text-align: center;
+}

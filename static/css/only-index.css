@@ -1,0 +1,19 @@
+.indexdiv{
+    padding-left: 40px;
+    width:1200px;
+    overflow: auto;
+}
+.clearinput{
+    height:30px;line-height:30px;width:60px; text-align:center;padding:0;
+    border:1px solid rgb(170,170,170);
+    /*border-radius:3px;*/
+    margin-right:5px;
+    background-color:rgb(255, 255, 255);
+    padding:0 11.4px;
+    cursor:pointer;
+    border-right-width:1;
+    
+}
+.clearinput:active{
+    background-color:#DDE4FE;
+}
