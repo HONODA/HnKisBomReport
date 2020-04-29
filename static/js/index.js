@@ -3,7 +3,7 @@ $(document).ready(function(){
 	<table id="BomMotherTableSideMenu" class ="div-right">\
 	<thead>\
 	<tr>\
-		<th>Bom编码</th><th>物料代码</th><th>物料名称</th>\
+		<th hidden>Bom编码</th><th>物料代码</th><th>物料名称</th>\
 	</tr>\
 	</thead>\
 	<tbody>\
@@ -57,7 +57,10 @@ $(document).ready(function(){
 							
 							var r = '<tr onclick="getRowData(this)" style="cursor:pointer;">'
 							$.each(d,function(i,val){
-								r+='<td>'+val+'</td>';
+								if (i =="0")
+									r+='<td hidden>'+val+'</td>';
+								else 
+									r+='<td>'+val+'</td>';
 								
 							});
 							r+='</tr>';

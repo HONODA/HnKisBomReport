@@ -12,12 +12,12 @@ def index(request):
 def getBomData(request):
     print("获取全部母单")
     list = command.getBomMother()
-    yields = 38
-    yeildcount = 17
-    num =[]
-    for i in range(yeildcount):
-        num.append(yields)
-        yields = yields + 1
+    # yields = 38
+    # yeildcount = 17
+    num =['BOM编码','新建时间','物料名称']
+    # for i in range(yeildcount):
+    #     num.append(yields)
+    #     yields = yields + 1
     #mycommand中 getBomMother需要显示的字段
     list1 =[]
     for l in list:
@@ -41,10 +41,10 @@ def ChildBomPost(request):
     print("获取对应子物料")
     list = command.getBomCild(id[0][0])#id[0][0]指的是 第一条行 里 对应的FInterID
     num =[]
-    i = 33
-    for j in range(17):
-        num.append(i)
-        i = i + 1
+    # i = 33
+    # for j in range(17):
+    #     num.append(i)
+    #     i = i + 1
     #num =[2,3,11,27,30,5]   #mycommand中 getBomChild 需要显示的字段
     list1 =[]
     for l in list:
@@ -106,12 +106,12 @@ def ChildtoBomMotherData(request):
 
 def BomDataSmall(request):
     list = command.getBomMother()
-    yields = 38
-    yeildcount = 3
-    num =[]
-    for i in range(yeildcount):
-        num.append(yields)
-        yields = yields + 1
+    # yields = 38
+    # yeildcount = 3
+    num =['BOM编码','规格型号','锥入度','颜色外观']
+    # for i in range(yeildcount):
+    #     num.append(yields)
+    #     yields = yields + 1
     list1 =[]
     for l in list:
         list2 =[]
@@ -127,17 +127,17 @@ def getOneMotherBom(request):
     print("获取一个母单")
     value = request.POST["id"]
     var = command.getBomMotherByBomNo("'"+value+"'")
-    yields = 1
-    yeildcount = 16
-    num =[]
-    for i in range(yeildcount):
-        num.append(yields)
-        yields = yields + 1
+    # yields = 1
+    # yeildcount = 16
+    num =['BOM编码','新建日期','物料名称','规格型号','锥入度','颜色外观','产品应用','调样目的','基础油粘度','产品应用']
+    # for i in range(yeildcount):
+    #     num.append(yields)
+    #     yields = yields + 1
     #mycommand中 getBomMother需要显示的字段
     list1 =[]
     for l in var:
         list2 =[]
-        list2.append(l[18])
+        # list2.append(l[18])
         for n in num:
             list2.append(l[n])
         list1.append(list2)

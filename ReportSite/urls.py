@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^$', views.index),
     path(r'BomData/',views.getBomData,name = 'BomData'),
     path(r'ChildBomPost/',views.ChildBomPost,name = 'ChildBomPost'),
-    path(r'ChildtoBomMotherData/',views.ChildtoBomMotherData,name = 'ChildtoBomMotherData'),
+    # path(r'ChildtoBomMotherData/',views.ChildtoBomMotherData,name = 'ChildtoBomMotherData'),
     path(r'BomDataSmall/',views.BomDataSmall,name = 'BomDataSmall'),
-    path(r'getOneMotherBom/',views.getOneMotherBom,name = 'getOneMotherBom'),
+    # path(r'getOneMotherBom/',views.getOneMotherBom,name = 'getOneMotherBom'),
 ]

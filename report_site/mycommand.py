@@ -4,7 +4,7 @@ class command :
             
     def getBomMother():#获取所有Bom表数据
         conn = sq.conn()
-        sql = "SELECT ROW_NUMBER() over (order by FBOMNumber ),FBrNo,FInterID,FBOMNumber,FImpMode,FUseStatus,\
+        sql = "SELECT ROW_NUMBER() over (order by FBOMNumber ) as 行号,FBrNo,FInterID,FBOMNumber,FImpMode,FUseStatus,\
         FVersion,FParentID,FItemID,FQty,FYield,\
         FCheckID,FCheckDate,FOperatorID,FEnterTime,FStatus,\
         FCancellation,FTranType,FRoutingID,FBomType,FCustID,\
@@ -29,7 +29,9 @@ class command :
         '' as '工艺路线名称',\
         (select r.Fname  from t_user r where r.FUserID = m.FCheckID) as '建立人员',\
         FCheckdate as '新建时间',\
-        FNote as '备注'\
+        FNote as '备注',\
+        ''as 锥入度,\
+        '' as 颜色外观\
          FROM ICBOM m order by m.FBOMNumber"
         #print(sql)
         cursor = conn.cursor() #创建游标
