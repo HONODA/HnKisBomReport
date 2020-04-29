@@ -14,7 +14,7 @@ def getBomData(request):
     list = command.getBomMother()
     # yields = 38
     # yeildcount = 17
-    num =['BOM编码','新建时间','物料名称']
+    num =['BOM编码','新建日期','物料名称','规格型号','锥入度','颜色外观','产品应用','调样目的','基础油粘度']
     # for i in range(yeildcount):
     #     num.append(yields)
     #     yields = yields + 1
@@ -39,8 +39,8 @@ def ChildBomPost(request):
         print("读取BOM表："+str(value)+"时出现多个数据。或者BOM编码不存在")
         return None
     print("获取对应子物料")
-    list = command.getBomCild(id[0][0])#id[0][0]指的是 第一条行 里 对应的FInterID
-    num =[]
+    list = command.getBomCild(id[0]['FInterID'])#id[0][0]指的是 第一条行 里 对应的FInterID
+    num =['内码','物料名称','规格型号','比例','录入数量','颜色外观']
     # i = 33
     # for j in range(17):
     #     num.append(i)
@@ -84,17 +84,16 @@ def ChildtoBomMotherData(request):
     if  len(list) == 0:
         print("读取物料编号："+str(value)+"时不存在相应BOM")
         return None
-    yields = 0
-    yeildcount = 17
-    num =[]
+    # yields = 0
+    # yeildcount = 17
+    num =['BOM编码','新建日期','物料名称','规格型号','锥入度','颜色外观','产品应用','调样目的','基础油粘度']
     
-    for i in range(yeildcount):
-        num.append(yields)
-        yields = yields + 1
+    # for i in range(yeildcount):
+    #     num.append(yields)
+    #     yields = yields + 1
         #mycommand中 getBomChild 需要显示的字段
     list1 =[]
     for l in list:
-        print(len(l))
         list2 =[]
         for n in num:
             list2.append(l[n])
@@ -129,7 +128,7 @@ def getOneMotherBom(request):
     var = command.getBomMotherByBomNo("'"+value+"'")
     # yields = 1
     # yeildcount = 16
-    num =['BOM编码','新建日期','物料名称','规格型号','锥入度','颜色外观','产品应用','调样目的','基础油粘度','产品应用']
+    num =['BOM编码','新建日期','物料名称','规格型号','锥入度','颜色外观','产品应用','调样目的','基础油粘度']
     # for i in range(yeildcount):
     #     num.append(yields)
     #     yields = yields + 1

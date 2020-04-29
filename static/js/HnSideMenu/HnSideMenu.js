@@ -9,7 +9,7 @@ Release By HJD HN
 
 	$.fn.HnSideMenu = function(param){
 		param = Option.U(param)
-		this.append('<input type="checkbox" id="hnside"/>')
+		this.append('<input type="checkbox" id="hnside" checked/>')
 		this.append('<div class="SideMenuContent"></div>')
 		var sideMenuContent = this.children(".SideMenuContent")
 		sideMenuContent.append('<aside> <h1>'+param.title+'</h1></aside>')
@@ -30,7 +30,8 @@ Release By HJD HN
 			"width":"200px",            //边框的宽度
 			"CreateSearchTextId":"SearchText",
 			"KeyDownAtcion":function(e,btnthis){},//TODO 按键事件
-			"Content"	:	'<div id="asideSearchText" align="center""></div>'
+			"Content"	:	'<div id="asideSearchText" align="center""></div>',
+			"isShowed"	: false
 	};
 
 	var Option ={

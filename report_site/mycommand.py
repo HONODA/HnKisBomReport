@@ -4,7 +4,7 @@ class command :
             
     def getBomMother():#获取所有Bom表数据
         conn = sq.conn()
-        sql = "SELECT ROW_NUMBER() over (order by FBOMNumber ) as 行号,FBrNo,FInterID,FBOMNumber,FImpMode,FUseStatus,\
+        sql = "SELECT  ROW_NUMBER() over (order by FBOMNumber ) as 行号,FBrNo,FInterID,FBOMNumber,FImpMode,FUseStatus,\
         FVersion,FParentID,FItemID,FQty,FYield,\
         FCheckID,FCheckDate,FOperatorID,FEnterTime,FStatus,\
         FCancellation,FTranType,FRoutingID,FBomType,FCustID,\
@@ -28,11 +28,15 @@ class command :
         '' as '工艺路线代码',\
         '' as '工艺路线名称',\
         (select r.Fname  from t_user r where r.FUserID = m.FCheckID) as '建立人员',\
-        FCheckdate as '新建时间',\
+        FCheckdate as '新建日期',\
         FNote as '备注',\
-        ''as 锥入度,\
-        '' as 颜色外观\
-         FROM ICBOM m order by m.FBOMNumber"
+        FHeadSelfZ0138 as 锥入度,\
+        FHeadSelfZ0139 as 颜色外观,\
+               replace(replace(replace( FHeadSelfZ0137,'\
+',''),'\r\n',''),'\t','') as 调样目的,\
+        FHeadSelfZ0146 as 产品应用,\
+        FHeadSelfZ0136 as 基础油粘度\
+        FROM ICBOM m order by m.FBOMNumber"
         #print(sql)
         cursor = conn.cursor() #创建游标
         cursor.execute(sql)
@@ -63,9 +67,15 @@ class command :
         '' as '工艺路线代码',\
         '' as '工艺路线名称',\
         (select r.Fname  from t_user r where r.FUserID = m.FCheckID) as '建立人员',\
-        FCheckdate as '新建时间',\
+        FCheckdate as '新建日期',\
         FNote as '备注',\
-        FBOMNumber as 'BOM编码'\
+        FBOMNumber as 'BOM编码',\
+                    FHeadSelfZ0138 as 锥入度,\
+        FHeadSelfZ0139 as 颜色外观,\
+               replace(replace(replace( FHeadSelfZ0137,'\
+',''),'\r\n',''),'\t','') as 调样目的,\
+        FHeadSelfZ0146 as 产品应用,\
+        FHeadSelfZ0136 as 基础油粘度\
          FROM ICBOM m  where FBOMNumber in ("+str(whereis)+") order by m.FBOMNumber"
         #print(sql)
         cursor = conn.cursor() #创建游标
@@ -106,7 +116,10 @@ class command :
                 FScrap as '损耗率',\
                 FPositionNo as '位置号',\
                 FBeginDay as '生效日期',\
-                FEndDay as '失效日期'\
+                FEndDay as '失效日期',\
+                FEntrySelfZ0142 as '录入数量',\
+                FEntrySelfZ0143 as '比例',\
+                (select f_106 from t_ICItemCustom where fitemid = m.fitemid)   as 颜色外观\
                 FROM ICBOMChild m where FInterID = '"+str(FInterID)+"'" +"order by FEntryID "
         cursor = conn.cursor() #创建游标
         print(sql)
@@ -136,9 +149,16 @@ class command :
         '' as '工艺路线代码',\
         '' as '工艺路线名称',\
         (select r.Fname  from t_user r where r.FUserID = m.FCheckID) as '建立人员',\
-        FCheckdate as '新建时间',\
+        FCheckdate as '新建日期',\
         FNote as '备注',\
-            FInterID\
+            FInterID,\
+        FBOMNumber as 'BOM编码',\
+                    FHeadSelfZ0138 as 锥入度,\
+        FHeadSelfZ0139 as 颜色外观,\
+               replace(replace(replace( FHeadSelfZ0137,'\
+',''),'\r\n',''),'\t','') as 调样目的,\
+        FHeadSelfZ0146 as 产品应用,\
+        FHeadSelfZ0136 as 基础油粘度\
          FROM ICBOM m) dd where dd.FInterID \
         in(        select finterid from ICBOMChild d where d.FItemID in (-itemid) and FInterID = FInterID\
         group by finterid having COUNT(FInterID)>= -count ) \
