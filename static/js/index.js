@@ -2,6 +2,11 @@ $(document).ready(function(){
 
 //创建hnsideMenu
 	createHnSideMenu()
+
+//创建搜索框
+
+createSearchChildrenBOm()
+
 //展现HnsideMenu 数据
 	$.ajax({
 		url: "BomDataSmall/",
@@ -328,7 +333,7 @@ function postandgetOneMotherBom(val){
 					'hover':true,
 					'write':function(d){ /*表格生成每行数据的方法*/
 								
-								var r = '<tr">'
+								var r = '<tr>'
 								$.each(d,function(i,val){
 									r+='<td>'+val+'</td>';
 									
@@ -578,6 +583,78 @@ function HnsearchSmall_keyDown(e,btnthis){
 		createSmallBom(_json,isenable)
 	};
 }
+function HnSearchChildren_keyDown(e,btnthis){
+	if(event.keyCode == 13){
+		cleanbuttonid()
+		cleanButton()
+
+		val = btnthis.children("td").children("input").val() +","
+		$.ajax({
+			url: "ChildtoBomMotherData/",
+			type: "POST",
+			dataType: "json",
+			data:{"id":val},
+			success: function(result) {
+				
+					
+				testdata1 = result//result就是你想要的值
+				testdata1 = testdata1.replace("\\","")
+				jsons = $.parseJSON(testdata1);
+				jsdata = jsons;
+				if (jsdata['status'] == '404'){
+					alert("查询内容为空值")
+					cleanbuttonid()
+					cleanButton()
+					return
+				}
+				cleanSearch()
+				cleanBomMotherTablePage()
+				$('#BomMotherTable').yhhDataTable(
+				{
+					'paginate':{
+						'changeDisplayLen':true,
+						'type':'updown',
+						'visibleGo': true,
+						'displayLen':1,  /*每页显示条数*/
+						'displayLenMenu':[1,5,10,30] /*改变每页显示数目时的可选值*/
+					},
+					'tbodyRow':{
+						'zebra':true,
+						'selected':true,
+						'hover':true,
+						'write':function(d){ /*表格生成每行数据的方法*/
+								
+								var r = '<tr onclick ="getRowData2(this)">'
+								$.each(d,function(i,val){
+										r+='<td>'+val+'</td>';
+								});
+								r+='</tr>';
+								return r;
+
+						}
+					},
+					'tbodyData':{
+						'enabled':true,  /*是否传入表格数据*/
+						'source':jsons  /*传入的表格数据*/
+					}
+				});
+				$("#BomMotherTable").children("thead").append('<tr id="SearchText"></tr>')
+				
+				$("#BomMotherTable").HnSearch({
+					"Searchbtn":true,
+					"CreateBtnId":"#Searchbtn",
+					"CreateSearchTextId":"#SearchText",
+					"count":getJsonLength(jsons),
+					"width":8,
+					"KeyDownAtcion":function(e,btnthis){
+						Hnsearch_KeyDown(e,btnthis);
+					}
+				});
+			}
+
+		});
+	}
+}
 function createSearch(){
 	cleanSearch();
 	$("#BomMotherTable").children("thead").append('<tr id="SearchText"></tr>');
@@ -692,6 +769,20 @@ function createSmallBom(result,isenable){
 		}
 	});
 }
+//创建子件搜索功能
+function createSearchChildrenBOm(){
+	$(".searchildiv").HnSearch({
+		"Searchbtn":true,
+		"CreateBtnId":"",
+		"CreateSearchTextId":"#searchdivSearchText",
+		"count":1,
+		"width":20,
+		"KeyDownAtcion":function(e,btnthis){
+			HnSearchChildren_keyDown(e,btnthis)
+		},
+		"usetag":'td'
+	});
+}
 var smalljsdata =[]
 var jsdata =[]	
 var iddata =[]
@@ -699,7 +790,7 @@ var content = '<div id="asideSearchText" align="center""></div><div>\
 <table id="BomMotherTableSideMenu" class ="div-right">\
 <thead>\
 <tr>\
-	<th hidden>Bom编码</th><th>规格型号</th><th>锥入度</th><th>颜色外观</th>\
+	<th hidden>Bom编码</th><th>物料名称</th><th>规格型号</th><th>锥入度</th><th>颜色外观</th>\
 </tr>\
 </thead>\
 <tbody>\

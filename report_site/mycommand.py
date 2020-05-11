@@ -176,6 +176,54 @@ class command :
             rows = cursor.fetchone()
         conn.close()
         return list
+    def getBomChildbyName(itemname,times):
+        conn = sq.conn()
+        sql = "select * from (select FBOMNumber,\
+        (select FNumber from t_icitem where FItemID =m.FItemID )as '物料代码',\
+        (select FName from t_icitem where FItemID =m.FItemID )as '物料名称',\
+        (select FModel from t_icitem where FItemID =m.FItemID )as '规格型号',\
+        (select ( select t.FName from t_SubMessage t where t.FInterID = FErpClsID) t from t_icitem where FItemID =m.FItemID )as '物料属性',\
+        (select (select t.FName  from t_MeasureUnit t where  t.fitemid = FProductUnitID) from t_icitem where FItemID =m.FItemID )as '单位',\
+        (select FQty from t_icitem where FItemID =m.FItemID )as '数量',\
+        FYield as '成品率',\
+        Fstatus as '状态',\
+        (case  when FAudDate IS NULL then '未审核' else '已审核' end) as 审核,\
+        FAudDate as '审核日期',\
+        Fversion as '版本',\
+        '' as '图号',\
+        '' as '工艺路线代码',\
+        '' as '工艺路线名称',\
+        (select r.Fname  from t_user r where r.FUserID = m.FCheckID) as '建立人员',\
+        FCheckdate as '新建日期',\
+        FNote as '备注',\
+            FInterID,\
+        FBOMNumber as 'BOM编码',\
+                    FHeadSelfZ0138 as 锥入度,\
+        FHeadSelfZ0139 as 颜色外观,\
+               replace(replace(replace( FHeadSelfZ0137,'\
+',''),'\r\n',''),'\t','') as 调样目的,\
+        FHeadSelfZ0146 as 产品应用,\
+        FHeadSelfZ0136 as 基础油粘度\
+         FROM ICBOM m) dd where dd.FInterID \
+        in (select 内码 from \
+(select FInterID as 内码,   \
+FItemID as 物料内码 ,\
+(select m.FName from t_item m where m.FItemID = d.FItemID)as 物料名称  \
+from ICBOMChild d )as a  where a.物料名称 like -itemname\
+group by a.内码 having count(*) >= -counts)"
+        sql = sql.replace('-itemname',itemname)
+        sql = sql.replace('-counts',times)
+        print("获取所有子单")
+        print(sql)
+        cursor = conn.cursor() #创建游标
+        cursor.execute(sql)
+        rows = cursor.fetchone()
+        list = []
+        while rows:
+            list.append(rows)
+            rows = cursor.fetchone()
+        conn.close()
+        return list
     def toJsonSource(list):
         l = []
         floor1 = 0
