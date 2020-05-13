@@ -283,7 +283,8 @@ function postandgetChildBom(val){
 					'selected':true,
 					'hover':true,
 					'write':function(d){ /*表格生成每行数据的方法*/
-							var r = '<tr ondblclick="getChildRowData(this)">'
+							//var r = '<tr ondblclick="getChildRowData(this)">'
+							var r = '<tr>'
 							$.each(d,function(i,val){
 								r+='<td>'+val+'</td>';
 								
