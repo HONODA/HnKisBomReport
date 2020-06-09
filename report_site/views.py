@@ -80,7 +80,7 @@ def ChildtoBomMotherData(request):
                 if _i == 0 :
                     names ="'%" + i +"%' "
                 else:
-                    names = names +"or a.物料名称 like '"+i+"'"
+                    names = names +"or a.物料名称 like '%"+i+"%'"
                 _i = _i + 1 
         list = command.getBomChildbyName(names,str(_i))
     else:

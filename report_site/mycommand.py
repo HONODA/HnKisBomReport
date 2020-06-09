@@ -205,12 +205,13 @@ class command :
         FHeadSelfZ0146 as 产品应用,\
         FHeadSelfZ0136 as 基础油粘度\
          FROM ICBOM m) dd where dd.FInterID \
-        in (select 内码 from \
-(select FInterID as 内码,   \
-FItemID as 物料内码 ,\
-(select m.FName from t_item m where m.FItemID = d.FItemID)as 物料名称  \
-from ICBOMChild d )as a  where a.物料名称 like -itemname\
-group by a.内码 having count(*) >= -counts)"
+        in (select aaa.内码 from (\
+select * from (SELECT (select m.FName from t_item m where m.FItemID = d.FItemID )as 物料名称 ,d.FInterID as 内码\
+ from ICBOMChild d )as a   where a.物料名称 like -itemname\
+group by a.内码,a.物料名称\
+) as aaa\
+ group by aaa.内码 having count(aaa.内码) >= -counts\
+ )"
         sql = sql.replace('-itemname',itemname)
         sql = sql.replace('-counts',times)
         print("获取所有子单")
